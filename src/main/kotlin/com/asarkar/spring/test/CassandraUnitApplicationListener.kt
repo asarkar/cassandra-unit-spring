@@ -15,6 +15,7 @@ import org.yaml.snakeyaml.events.ScalarEvent
 import java.io.FileWriter
 import java.nio.file.Files
 import java.nio.file.Paths
+import kotlin.concurrent.thread
 
 @Order(Ordered.LOWEST_PRECEDENCE)
 class CassandraUnitApplicationListener : ApplicationListener<ApplicationPreparedEvent> {
@@ -24,7 +25,7 @@ class CassandraUnitApplicationListener : ApplicationListener<ApplicationPrepared
     override fun onApplicationEvent(event: ApplicationPreparedEvent) {
         val env = event.applicationContext.environment
         val config = env.getProperty("$prefix.config", String::class.java) ?: return
-        val cassandra = if (CassandraUnitLifecycle.running) {
+        val cassandra = if (CassandraUnit.isRunning()) {
             mapOf(
                 "$prefix.native-transport-port" to EmbeddedCassandraServerHelper.getNativeTransportPort(),
                 "$prefix.rpc-port" to EmbeddedCassandraServerHelper.getRpcPort()
@@ -41,6 +42,15 @@ class CassandraUnitApplicationListener : ApplicationListener<ApplicationPrepared
         with(env.propertySources) {
             remove("cassandra")
             addFirst(MapPropertySource("cassandra", cassandra))
+        }
+
+        if (!CassandraUnit.isRunning()) {
+            log.debug("Starting Cassandra server")
+            CassandraUnit.start(
+                cassandra["$prefix.config"].toString(),
+                env.getRequiredProperty("$prefix.timeout", Long::class.java)
+            )
+            Runtime.getRuntime().addShutdownHook(thread(start = false) { CassandraUnit.cleanUp() })
         }
     }
 

@@ -1,4 +1,2 @@
 org.springframework.context.ApplicationListener=\
 com.asarkar.spring.test.CassandraUnitApplicationListener
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-com.asarkar.spring.test.CassandraUnitAutoConfiguration
