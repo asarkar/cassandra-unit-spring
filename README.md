@@ -2,7 +2,7 @@
 
 Starts the Cassandra server and makes the ports available as Spring Boot environment properties.
 
-Requires Java 8 or later, and Spring Boot.
+Requires Java 8 or later. Uses [cassandra-unit](https://github.com/jsevellec/cassandra-unit) and [Spring Boot](https://spring.io/projects/spring-boot). 
 
 ## Installation
 
@@ -12,7 +12,7 @@ It is also on Maven Central and jcenter.
 
 ## Usage
 
-To start the server using random ports:
+The only thing you need is the `AutoConfigureCassandraUnit` annotation:
 
 ```
 @SpringBootTest
@@ -31,6 +31,8 @@ public class AutoConfigureWithRandomPortsTest {
     }
 }
 ```
+
+See KDoc for more details.
 
 Note that CassandraUnit can only run one Cassandra instance per JVM; thus, if `AutoConfigureCassandraUnit` annotation 
 is present on more than one test classes, only the first one is used, the others are ignored. That means the port
