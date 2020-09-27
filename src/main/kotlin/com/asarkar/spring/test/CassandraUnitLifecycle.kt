@@ -8,14 +8,14 @@ import org.cassandraunit.utils.EmbeddedCassandraServerHelper.DEFAULT_TMP_DIR
 import org.cassandraunit.utils.EmbeddedCassandraServerHelper.getSession
 import org.cassandraunit.utils.EmbeddedCassandraServerHelper.startEmbeddedCassandra
 import org.springframework.beans.factory.annotation.Value
-import org.springframework.context.SmartLifecycle
+import org.springframework.context.Lifecycle
 import org.springframework.util.ReflectionUtils
 import java.io.File
 import java.lang.reflect.Field
 import java.nio.file.Files
 import java.nio.file.Paths
 
-open class CassandraUnitLifecycle : SmartLifecycle {
+open class CassandraUnitLifecycle : Lifecycle {
     companion object {
         private val cassandraDaemon: Field =
             ReflectionUtils.findField(EmbeddedCassandraServerHelper::class.java, "cassandraDaemon")!!
@@ -48,6 +48,4 @@ open class CassandraUnitLifecycle : SmartLifecycle {
     }
 
     override fun isRunning(): Boolean = running
-
-    override fun getPhase(): Int = Int.MIN_VALUE
 }
