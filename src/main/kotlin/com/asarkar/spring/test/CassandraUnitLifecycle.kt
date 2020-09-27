@@ -15,7 +15,7 @@ import java.lang.reflect.Field
 import java.nio.file.Files
 import java.nio.file.Paths
 
-class CassandraUnitLifecycle : SmartLifecycle {
+open class CassandraUnitLifecycle : SmartLifecycle {
     companion object {
         private val cassandraDaemon: Field =
             ReflectionUtils.findField(EmbeddedCassandraServerHelper::class.java, "cassandraDaemon")!!
