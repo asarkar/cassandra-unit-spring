@@ -48,4 +48,6 @@ open class CassandraUnitLifecycle : SmartLifecycle {
     }
 
     override fun isRunning(): Boolean = running
+
+    override fun getPhase(): Int = Int.MIN_VALUE
 }
