@@ -1,8 +1,8 @@
 # cassandra-unit-spring
 
-Starts the Cassandra server and makes the ports available as Spring environment properties.
+Starts the Cassandra server and makes the ports available as Spring Boot environment properties.
 
-Requires Java 8 or later.
+Requires Java 8 or later, and Spring Boot.
 
 ## Installation
 
