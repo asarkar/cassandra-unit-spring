@@ -1,4 +1,4 @@
-package com.asarkar.spring.test
+package com.asarkar.spring.cassandra
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication

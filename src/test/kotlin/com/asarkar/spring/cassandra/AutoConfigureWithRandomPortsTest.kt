@@ -1,5 +1,6 @@
-package com.asarkar.spring.test
+package com.asarkar.spring.cassandra
 
+import com.asarkar.spring.test.AutoConfigureCassandraUnit
 import org.cassandraunit.utils.EmbeddedCassandraServerHelper
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
@@ -7,8 +8,8 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.test.context.SpringBootTest
 
 @SpringBootTest
-@AutoConfigureCassandraUnit
-class AutoConfigureWithKnownPortsTest {
+@AutoConfigureCassandraUnit(config = EmbeddedCassandraServerHelper.CASSANDRA_RNDPORT_YML_FILE)
+class AutoConfigureWithRandomPortsTest {
     @Value("\${cassandra-unit.native-transport-port:-1}")
     private var nativeTransportPort: Int = -1
 

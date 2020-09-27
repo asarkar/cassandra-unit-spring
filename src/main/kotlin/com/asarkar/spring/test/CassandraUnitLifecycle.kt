@@ -9,14 +9,12 @@ import org.cassandraunit.utils.EmbeddedCassandraServerHelper.getSession
 import org.cassandraunit.utils.EmbeddedCassandraServerHelper.startEmbeddedCassandra
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.SmartLifecycle
-import org.springframework.context.annotation.Configuration
 import org.springframework.util.ReflectionUtils
 import java.io.File
 import java.lang.reflect.Field
 import java.nio.file.Files
 import java.nio.file.Paths
 
-@Configuration(proxyBeanMethods = false)
 class CassandraUnitLifecycle : SmartLifecycle {
     companion object {
         private val cassandraDaemon: Field =
