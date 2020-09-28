@@ -17,6 +17,13 @@ import java.nio.file.Files
 import java.nio.file.Paths
 import kotlin.concurrent.thread
 
+/**
+ * Listener that prepares the environment so that CassandraUnit will work when it is initialized.
+ * For instance, by finding free ports for the server to listen on.
+ *
+ * @author Abhijit Sarkar
+ * @since 1.0.0
+ */
 @Order(Ordered.LOWEST_PRECEDENCE)
 class CassandraUnitApplicationListener : ApplicationListener<ApplicationPreparedEvent> {
     private val log = LoggerFactory.getLogger(CassandraUnitApplicationListener::class.java)
@@ -24,13 +31,18 @@ class CassandraUnitApplicationListener : ApplicationListener<ApplicationPrepared
 
     override fun onApplicationEvent(event: ApplicationPreparedEvent) {
         val env = event.applicationContext.environment
+        // If the config is not found it means the AutoConfigureCassandraUnit hasn't been initialized.
         val config = env.getProperty("$prefix.config", String::class.java) ?: return
+        // Already running; get the ports from EmbeddedCassandraServerHelper.
         val cassandra = if (CassandraUnit.isRunning()) {
             mapOf(
                 "$prefix.native-transport-port" to EmbeddedCassandraServerHelper.getNativeTransportPort(),
                 "$prefix.rpc-port" to EmbeddedCassandraServerHelper.getRpcPort()
             )
         } else {
+            // If using default config with known ports, parse the config for the ports.
+            // If not using default config, assign a free port to whichever one is zero, and create a new
+            // config file.
             val outFile = config.takeIf { it != EmbeddedCassandraServerHelper.DEFAULT_CASSANDRA_YML_FILE }
                 ?.let { this.createTempFile(it) }
             discoverPorts(config, outFile).also {
@@ -64,13 +76,19 @@ class CassandraUnitApplicationListener : ApplicationListener<ApplicationPrepared
                 var portName: String? = null
                 Yaml().parse(reader)
                     .forEach {
+                        // If not a ScalarEvent, pass-through.
                         if (it !is ScalarEvent) emitter?.emit(it)
                         else {
+                            // Try to get the port name and value from the event.
                             val (name, value) = getPortNameAndValue(it, portName)
+                            // Existing port value is zero; new value assigned.
                             if (value != null) {
                                 cassandra["$prefix.$portName"] = value
                                 emitter?.emit(it.withValue(value))
-                            } else emitter?.emit(it)
+                            }
+                            // No need to modify the event; either it isn't a port, or the existing
+                            // port value isn't zero.
+                            else emitter?.emit(it)
                             portName = name
                         }
                     }
@@ -80,9 +98,12 @@ class CassandraUnitApplicationListener : ApplicationListener<ApplicationPrepared
     }
 
     private fun getPortNameAndValue(event: ScalarEvent, portName: String?): Pair<String?, Int?> {
+        // Found a port key.
         if (portName == null && event.value.endsWith("_port")) {
             return event.value.replace('_', '-') to null
-        } else if (portName != null) {
+        }
+        // Found the port value corresponding to the key found previously.
+        else if (portName != null) {
             val port = if (event.value.matches("0+".toRegex())) SocketUtils.findAvailableTcpPort()
             else event.value.toInt()
             return null to port
