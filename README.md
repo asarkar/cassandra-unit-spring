@@ -41,6 +41,7 @@ properties will not change once a Cassandra instance is started.
 This library aims to be minimal and manages only the lifecycle of the Cassandra server during testing; it does not 
 run initialization scripts or clean the database between tests, because you can do those things yourself.
 
+> If you abort a test or run two tests both of which start the server, you may be faced with a `FileAlreadyExistsException`. That is because of [this bug](https://github.com/jsevellec/cassandra-unit/issues/319).
 ## Contribute
 
 This project is a volunteer effort. You are welcome to send pull requests, ask questions, or create issues.
