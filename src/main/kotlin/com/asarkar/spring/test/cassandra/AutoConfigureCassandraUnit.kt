@@ -1,4 +1,4 @@
-package com.asarkar.spring.test
+package com.asarkar.spring.test.cassandra
 
 import org.cassandraunit.utils.EmbeddedCassandraServerHelper
 import org.junit.jupiter.api.Tag

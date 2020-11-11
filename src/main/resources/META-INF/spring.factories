@@ -1,2 +1,2 @@
 org.springframework.context.ApplicationListener=\
-com.asarkar.spring.test.CassandraUnitApplicationListener
+com.asarkar.spring.test.cassandra.CassandraUnitApplicationListener

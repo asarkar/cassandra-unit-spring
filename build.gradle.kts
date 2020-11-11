@@ -121,6 +121,7 @@ publishing {
 }
 
 val bintrayRepo: String by project
+val projectLabels: String by project
 bintray {
     user = (findProperty("bintrayUser") ?: System.getenv("BINTRAY_USER"))?.toString()
     key = (findProperty("bintrayKey") ?: System.getenv("BINTRAY_KEY"))?.toString()
@@ -131,7 +132,7 @@ bintray {
         desc = project.description
         websiteUrl = "https://$gitHubUrl"
         vcsUrl = "https://$gitHubUrl.git"
-        setLabels("spring", "spring-boot", "cassandra", "cassandra-unit", "test", "integration-test")
+        setLabels(*projectLabels.split(",".toRegex()).map { it.trim() }.toTypedArray())
         setLicenses(licenseName)
         with(version) {
             name = project.version.toString()

@@ -1,6 +1,5 @@
-package com.asarkar.spring.cassandra
+package com.asarkar.spring.test.cassandra
 
-import com.asarkar.spring.test.AutoConfigureCassandraUnit
 import org.cassandraunit.utils.EmbeddedCassandraServerHelper
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
