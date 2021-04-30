@@ -37,15 +37,15 @@ See KDoc for more details.
 This library aims to be minimal and manages only the lifecycle of the Cassandra server during testing; it does not 
 run initialization scripts or clean the database between tests, because you can do those things yourself.
 
-:heavy_check_mark: If you use Spring Data, you can set `spring.data.cassandra.port=${cassandra-unit.rpc-port:-1}` property in `src/test/application.properties` or `@SpringBootTest.properties` attribute.
+:information_source: If you use Spring Data, you can set `spring.data.cassandra.port=${cassandra-unit.rpc-port:-1}` property in `src/test/application.properties` or `@SpringBootTest.properties` attribute.
 
-:heavy_check_mark: cassandra-unit can only run one Cassandra instance per JVM; thus, if `AutoConfigureCassandraUnit` annotation 
+:information_source: cassandra-unit can only run one Cassandra instance per JVM; thus, if `AutoConfigureCassandraUnit` annotation 
 is present on more than one test classes, only the first one is used, the others are ignored. That means the port
 properties will not change once a Cassandra instance is started.
 
-:heavy_exclamation_mark: If you abort a test or run two tests both of which start the server, you may be faced with a `FileAlreadyExistsException`. That is because of [this bug](https://github.com/jsevellec/cassandra-unit/issues/319). If using Maven, `clean` goal will delete the temporary directory; if using Gradle, you can either delete the `target` directory manually, or [add it to the Gradle `clean` task](https://stackoverflow.com/a/29813360/839733).
+:warning: If you abort a test or run two tests both of which start the server, you may be faced with a `FileAlreadyExistsException`. That is because of [this bug](https://github.com/jsevellec/cassandra-unit/issues/319). If using Maven, `clean` goal will delete the temporary directory; if using Gradle, you can either delete the `target` directory manually, or [add it to the Gradle `clean` task](https://stackoverflow.com/a/29813360/839733).
 
-:heavy_exclamation_mark: cassandra-unit doesn't work with Java 11; see [this bug](https://github.com/jsevellec/cassandra-unit/issues/294).
+:warning: cassandra-unit doesn't work with Java 11; see [this bug](https://github.com/jsevellec/cassandra-unit/issues/294).
 
 ## Contribute
 
