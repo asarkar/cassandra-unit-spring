@@ -12,6 +12,8 @@ It is also on Maven Central and jcenter.
 
 ## Usage
 
+You will need to add a test runtime dependency on [org.cassandraunit:cassandra-unit](https://search.maven.org/artifact/org.cassandraunit/cassandra-unit). If using Gradle, it can be done with `testRuntimeOnly("org.cassandraunit:cassandra-unit:$someVersion")`.
+
 The only thing you need is the `AutoConfigureCassandraUnit` annotation:
 
 ```
@@ -46,6 +48,8 @@ properties will not change once a Cassandra instance is started.
 :warning: If you abort a test or run two tests both of which start the server, you may be faced with a `FileAlreadyExistsException`. That is because of [this bug](https://github.com/jsevellec/cassandra-unit/issues/319). If using Maven, `clean` goal will delete the temporary directory; if using Gradle, you can either delete the `target` directory manually, or [add it to the Gradle `clean` task](https://stackoverflow.com/a/29813360/839733).
 
 :warning: cassandra-unit doesn't work with Java 11; see [this bug](https://github.com/jsevellec/cassandra-unit/issues/294).
+
+:warning: cassandra-unit doesn't work with Java 17; see [this bug](https://github.com/jsevellec/cassandra-unit/issues/332).
 
 ## Contribute
 
