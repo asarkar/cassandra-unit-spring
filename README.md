@@ -6,9 +6,7 @@ Requires Java 8 or later. Uses [cassandra-unit](https://github.com/jsevellec/cas
 
 ## Installation
 
-You can find the latest version on Bintray. [ ![Download](https://api.bintray.com/packages/asarkar/mvn/com.asarkar.spring%3Acassandra-unit-spring/images/download.svg) ](https://bintray.com/asarkar/mvn/com.asarkar.spring%3Acassandra-unit-spring/_latestVersion)
-
-It is also on Maven Central and jcenter.
+You can find the latest version on [Maven Central](https://search.maven.org/search?q=g:com.asarkar.spring%20AND%20a:cassandra-unit-spring).
 
 ## Usage
 
