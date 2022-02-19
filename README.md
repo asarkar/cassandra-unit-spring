@@ -53,9 +53,8 @@ properties will not change once a Cassandra instance is started.
 
 ## Contribute
 
-This project is a volunteer effort. You are welcome to send pull requests, ask questions, or create issues.
-If you like it, you can help by spreading the word!
+This project is a volunteer effort. You are welcome to send pull requests, ask questions, or create issues. If you like it, you can help by spreading the word and "Starring" the GitHub repo!
 
 ## License
 
-Copyright 2020 Abhijit Sarkar - Released under [Apache License v2.0](LICENSE).
+Copyright 2022 Abhijit Sarkar - Released under [Apache License v2.0](LICENSE).
