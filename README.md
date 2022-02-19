@@ -12,6 +12,8 @@ It is also on Maven Central and jcenter.
 
 ## Usage
 
+You will need to add a test runtime dependency on [org.cassandraunit:cassandra-unit](https://search.maven.org/artifact/org.cassandraunit/cassandra-unit). If using Gradle, it can be done with `testRuntimeOnly("org.cassandraunit:cassandra-unit:$someVersion")`.
+
 The only thing you need is the `AutoConfigureCassandraUnit` annotation:
 
 ```
@@ -47,11 +49,12 @@ properties will not change once a Cassandra instance is started.
 
 :warning: cassandra-unit doesn't work with Java 11; see [this bug](https://github.com/jsevellec/cassandra-unit/issues/294).
 
+:warning: cassandra-unit doesn't work with Java 17; see [this bug](https://github.com/jsevellec/cassandra-unit/issues/332).
+
 ## Contribute
 
-This project is a volunteer effort. You are welcome to send pull requests, ask questions, or create issues.
-If you like it, you can help by spreading the word!
+This project is a volunteer effort. You are welcome to send pull requests, ask questions, or create issues. If you like it, you can help by spreading the word and "Starring" the GitHub repo!
 
 ## License
 
-Copyright 2020 Abhijit Sarkar - Released under [Apache License v2.0](LICENSE).
+Copyright 2022 Abhijit Sarkar - Released under [Apache License v2.0](LICENSE).
